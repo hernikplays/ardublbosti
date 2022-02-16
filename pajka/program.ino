@@ -95,7 +95,7 @@ void ulozDoProm(){
 
 void loop()
 {
-	ukazCisilka();
+
 	// tlacitko s pameti - on/off
 	pred1 = stav1;
 	stav1 = !digitalRead(tlacON);
@@ -122,11 +122,12 @@ void loop()
 	// konec tlacitko on/off
 
 	if(isOn){
+		ukazCisilka();
 		// pajka zapnuta
 		foto = analogRead(A4);
-    Serial.print("Fotorezistor: ")
+		Serial.print("Fotorezistor: ");
 		Serial.print(foto);
-    Serial.println("---")
+		Serial.println("---");
 		if(foto > 600){	//hard hodnota, mozna zmenit
 			digitalWrite(ledZaclon,nesviti); // pri zacloneni nesviti (je nahrata)
 			if(digitalRead(ledTri) == 1){
@@ -162,7 +163,8 @@ void loop()
 			if(currentMillis - previous >= interval){	// cekame 2s ale bez blokovani programu
 				if(rozhodovaci + 1 <= limit){
 					rozhodovaci += 1;
-					tone(3,1976,50);}
+					tone(3,1976,50);
+				}
 			}
 		}
 		else if(pred3 == 1 && stav3 == 1){
@@ -170,7 +172,8 @@ void loop()
 			if(currentMillis - previous >= interval){
 				if(rozhodovaci - 1 >= 0){
 					rozhodovaci -= 1;
-					tone(3,1976,50);}
+					tone(3,1976,50);
+				}
 			}
 		}
 		// konec PLUS/MINUS s pameti
