@@ -27,7 +27,6 @@ void setup()
 	pinMode(tlacitkoZap,INPUT_PULLUP);
 	pinMode(tlacitkoPrep,INPUT_PULLUP);
 	pinMode(tlacitkoBlink,INPUT_PULLUP);
-	Serial.begin(9600);
 	digitalWrite(ledDalk,HIGH);
 	digitalWrite(ledPotkal,HIGH);
 	digitalWrite(blinkr,HIGH);
@@ -68,6 +67,7 @@ void loop()
 		if(blikat){
 			t.cancel(id);
 			blikat = false;
+      digitalWrite(blinkr, HIGH);
 		}
 		else{
 			// blikat
