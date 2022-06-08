@@ -9,11 +9,9 @@
 bool dalkove = false;
 bool blikat = false;
 bool sviti = false;
-
 // asynchronní interval
 AsyncTimer t;
 unsigned short id;
-
 // tlačítka s pamětí
 bool tlacitko1Zmack = false;
 bool tlacitko2Zmack = false;
@@ -49,11 +47,12 @@ void loop()
 		}
 		else{
 			if(dalkove){
-				digitalWrite(ledDalk,!digitalRead(ledDalk));
-				digitalWrite(ledPotkal,HIGH);
+				digitalWrite(ledDalk,LOW);
+				digitalWrite(ledPotkal,LOW);
 			}
 			else{
-				digitalWrite(ledPotkal,!digitalRead(ledPotkal));
+				digitalWrite(ledDalk,HIGH);
+				digitalWrite(ledPotkal,LOW);
 			}
 		}
 	}
@@ -86,24 +85,27 @@ void loop()
 		tlacitko3Zmack = false;
 		dalkove = !dalkove;
 		if(dalkove){
-			digitalWrite(ledPotkal,HIGH);
-			digitalWrite(ledDalk,!digitalRead(ledDalk));
+			digitalWrite(ledPotkal,LOW);
+			digitalWrite(ledDalk,LOW);
 		}
 		else{
 			digitalWrite(ledDalk,HIGH);
-			digitalWrite(ledPotkal,!digitalRead(ledDalk));
+			digitalWrite(ledPotkal,LOW);
 		}
 	}
 
-	if(analogRead(A4) > 650){
+	if(analogRead(A4) > 600){
 		// FOTOREZISTOR
-		sviti = true;
-		if(dalkove){
-			digitalWrite(ledDalk,!digitalRead(ledDalk));
-			digitalWrite(ledPotkal,HIGH);
-		}
-		else{
-			digitalWrite(ledPotkal,!digitalRead(ledPotkal));
-		}
+    if(!sviti){
+      tone(3,261,50);
+      sviti = true;
+      if(dalkove){
+        digitalWrite(ledDalk,LOW);
+        digitalWrite(ledPotkal,LOW);
+      }
+      else{
+        digitalWrite(ledPotkal,LOW);
+      }
+    }
 	}
 }
